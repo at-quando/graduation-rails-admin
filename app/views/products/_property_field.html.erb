@@ -1,0 +1,35 @@
+<div class="form-horizontal form-label-left col-md-12 col-sm-12 col-xs-12">
+	<div class="form-group">
+		<label class="col-md-5 col-sm-3 col-xs-12 control-label">
+			<h3>Add Property</h3>
+		</label>
+		<div class="col-md-7 col-sm-9 col-xs-12">
+		</div>
+	</div>
+	<div class="form-horizontal form-label-left">
+		<div class="form-group">
+			<label class="control-label col-md-3 col-sm-3 col-xs-12">Size (Ex: M,XL,L)</label>
+			<div class="col-md-5 col-sm-9 col-xs-12">
+				<%= f.text_field :size, class: 'form-control' %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3 col-sm-3 col-xs-12">Storage (GB) </label>
+			<div class="col-md-5 col-sm-9 col-xs-12">
+			<%= f.text_field :storage, class: 'form-control' %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3 col-sm-3 col-xs-12">Color</label>
+			<div class="col-md-5 col-sm-9 col-xs-12">
+					 <%= select_tag :color, options_for_select(color_arrays), class: "select2_group form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3 col-sm-3 col-xs-12">Price ($)</label>
+			<div class="col-md-5 col-sm-9 col-xs-12">
+				<%= f.text_field :price, class: 'form-control' %>
+			</div>
+		</div>
+	</div>
+</div>

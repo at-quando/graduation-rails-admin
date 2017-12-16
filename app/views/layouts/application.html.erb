@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AdminFanaticWebsite</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body class="nav-md" style="background-color: #F7F7F7 !important;">
+    <div class="container body">
+      
+  	  <div class="main_container" >
+      <% if logged_in? == true %>
+    	  <div class="col-md-3 left_col" style="position: fixed;">
+          <%= render 'layouts/asidebar' %> 
+        </div>
+        <div class="right-col" >
+          <%= render 'layouts/navbar' %> 
+          <div class="right_col" role="main">
+            <% flash.each do |name, msg| %>
+              <%= content_tag :div, msg, class: [:alert, alert_for(name)] %>
+            <% end %>
+            <%= yield %>
+          </div>
+        </div>
+      <% else %>
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, class: [:alert, alert_for(name)] %>
+        <% end %>
+        <%= yield %>
+      <% end %>
+      </div>
+    </div>
+  <%= javascript_include_tag 'application' %>
+  <style>
+    .alert{
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin-bottom: 0 !important;
+      z-index: 100;
+      width: 100%;
+    }
+  </style>
+  </body>
+</html>

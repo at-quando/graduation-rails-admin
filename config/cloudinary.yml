@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: asian-tech
+  api_key: '829637522354547'
+  api_secret: 8xXUcttJ7oaA1L-xGoWsuhbfBSo
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: asian-tech
+  api_key: '829637522354547'
+  api_secret: 8xXUcttJ7oaA1L-xGoWsuhbfBSo
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: asian-tech
+  api_key: '829637522354547'
+  api_secret: 8xXUcttJ7oaA1L-xGoWsuhbfBSo
+  enhance_image_tag: true
+  static_image_support: false

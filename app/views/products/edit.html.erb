@@ -1,0 +1,326 @@
+<div class="">
+  <div class="page-title">
+    <div class="title_left">
+      <h3>Product Page</h3>
+    </div>
+    <div class="title_right">
+      <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search for...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Go!</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row">
+    <% if @product.properties[0] %>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>You are watching the information of product id <%=@product.id %></h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Settings 1</a>
+                  </li>
+                  <li><a href="#">Settings 2</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <div class="col-md-7 col-sm-7 col-xs-12">
+            	<% if @product.properties[0].images.length>0 %>
+                <div class="product-image">
+                  <%= cl_image_tag(@product.properties[0].images[0].image) %>
+                </div>
+              <% end %>
+              <div class="product_gallery">
+                <% if @product.properties[0].images.length>1 %>
+              	  <% @product.properties[0].images.each do |image| %>
+                    <a>
+                      <%= cl_image_tag(image.image) %>
+                    </a>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+            <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
+              <h3 class="prod_title"><%=@product.name%></h3>
+              <p>A product of <b><%=@product.category.title%></b></p>
+              <p>Description: <%=@product.description%></p>
+              <br />
+              <div class="">
+                <h2>Available Colors</h2>
+                <ul class="list-inline prod_color">
+                	<%@product.properties.each do |property|%>
+                	  <% if property.color=="Black"%>
+                      <li>
+                        <p><%= property.color %></p>
+                        <div class="color" style="background-color: black"></div>
+                      </li>
+                  	<% end %>
+                  	<% if property.color=="Blue"%>
+                      <li>
+                        <p><%= property.color %></p>
+                        <div class="color bg-blue"></div>
+                      </li>
+                  	<% end %>
+                  	<% if property.color=="Red"%>
+                      <li>
+                        <p><%= property.color %></p>
+                        <div class="color bg-red"></div>
+                      </li>
+                  	<% end %>
+                  	<% if property.color=="Orange"%>
+                      <li>
+                        <p><%= property.color %></p>
+                        <div class="color bg-orange"></div>
+                      </li>
+                  	<% end %>
+                  <% end %>
+                </ul>
+              </div>
+              <br />
+              <div class="">
+            		<% if @product.properties[0].size!=nil %>
+              		<h2>Size</h2>
+                  <ul class="list-inline prod_size">
+                  	<%@product.properties.each do |property|%>
+                      <li>
+                        <button type="button" class="btn btn-default btn-xs"><%=property.size%></button>
+                      </li>
+                    <% end %>
+                  </ul>
+                <%end%>
+              </div>
+              <div class="">
+            		<% if @product.properties[0].storage!=nil %>
+              		<h2>Storage</h2>
+                  <ul class="list-inline prod_size">
+                  	<%@product.properties.each do |property|%>
+                      <li>
+                        <button type="button" class="btn btn-default btn-xs"><%=property.storage%></button>
+                      </li>
+                    <% end %>
+                  </ul>
+                <%end%>
+              </div>
+              <div class="">
+            		<% if @product.properties[0].size!=nil %>
+              		<h2>Size</h2>
+                  <ul class="list-inline prod_size">
+                  	<%@product.properties.each do |property|%>
+                      <li>
+                        <button type="button" class="btn btn-default btn-xs"><%=property.size%></button>
+                      </li>
+                    <% end %>
+                  </ul>
+                <%end%>
+              </div>
+              <div class="">
+                <table  class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Color</th>
+                      <th>Size</th>
+                      <th>Storage</th>
+                      <th>Price</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%@product.properties.each do |property|%>
+                      <tr>
+                        <td><%=property.color%></td>
+                        <td><%=property.size%></td>
+                        <td><%=property.storage%> GB</td>
+                        <td>$ <%=property.price%></td>
+                        <td><%= link_to 'Delete', property_path(property), method: 'DELETE' %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <p>This product dont have any properties. Please fill the new one! </p> 
+    <% end %>
+  </div>
+  <div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>Edit This product</h2>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Settings 1</a>
+                </li>
+                <li><a href="#">Settings 2</a>
+                </li>
+              </ul>
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <br />
+          <%= form_for @product, url: product_path(@product), method: :patch do |f| %>
+            <div class="form-horizontal form-label-left">
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Name</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+            	    <%= f.text_field :name, class: 'form-control' %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Description </label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                <%= f.text_field :description, class: 'form-control' %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Category</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+              	 <%= select_tag :category_id,  grouped_options_for_select(category_arrays, @product.category.id), class: 'select2_group form-control ' %>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Select Brand</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <%= select_tag :brand_id, options_for_select(brand_arrays), class: 'select2_group form-control '%>
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Input Tags</label>
+                <div class="col-md-9 col-sm-9 col-xs-12">
+                  <input id="tags_1" type="text" class="tags form-control" value="social, adverts, sales" />
+                  <div id="suggestions-container" style="position: relative; float: left; width: 250px; margin: 10px;"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                  <%= f.submit 'SAVE', class: "btn btn-primary"%>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Property</h2>
+        <ul class="nav navbar-right panel_toolbox">
+          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Settings 1</a>
+              </li>
+              <li><a href="#">Settings 2</a>
+              </li>
+            </ul>
+          </li>
+          <li><a class="close-link"><i class="fa fa-close"></i></a>
+          </li>
+        </ul>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <br />
+       <%= form_for @property, url: properties_path(@property) do |f| %>
+        <div class="form-horizontal form-label-left col-md-12 col-sm-12 col-xs-12">
+          <div class="form-group">
+            <label class="col-md-5 col-sm-3 col-xs-12 control-label">
+            	<h3>Add Property</h3>
+            </label>
+            <div class="col-md-7 col-sm-9 col-xs-12">
+            </div>
+          </div>
+          <div class="form-horizontal form-label-left">
+            	<%= f.hidden_field :product_id, :value => @product.id%>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Size (Ex: M,XL,L)</label>
+            <div class="col-md-5 col-sm-9 col-xs-12">
+            	<%= f.text_field :size, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Storage (GB) </label>
+            <div class="col-md-5 col-sm-9 col-xs-12">
+            <%= f.text_field :storage, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Color</label>
+            <div class="col-md-5 col-sm-9 col-xs-12">
+              	 <%= select_tag :color, options_for_select(color_arrays), class: "select2_group form-control" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Price ($)</label>
+            <div class="col-md-5 col-sm-9 col-xs-12">
+              <%= f.text_field :price, class: 'form-control' %>
+            </div>
+          </div>
+           <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Image</label>
+             <div class="col-md-5 col-sm-9 col-xs-12">
+              <%= f.file_field :image, :multiple => true %>
+            </div>
+          </div>
+           <div class="form-group">
+            <div class="col-md-5 col-sm-9 col-xs-12 col-md-offset-3">
+          <%= f.submit 'CREATE', class: "btn btn-primary"%>
+          </div>
+          </div>
+        </div>
+       <% end %>
+   </div>
+   </div>
+   <div class="clearfix"></div>
+      <div class="x_content">
+    </div>
+  </div> 
+</div>
+<script type="text/javascript">
+  $('#category_id').change(function() {
+      var value =  $('#category_id').val();
+       $.ajax({
+          url:'../../get_brand',
+          type:'POST',
+          dataType:'json',
+          data:{
+              valueCat: value,
+          },
+          dataType: 'script',
+          success:function(data){
+            console.log(data);
+          },
+          error:function(data){
+              console.log(data);
+          }
+      });
+    });
+</script>

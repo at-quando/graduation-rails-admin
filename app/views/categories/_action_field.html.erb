@@ -1,0 +1,17 @@
+<div id="action">
+  <b>Having action with <%=@category.title%></b><br>
+<%= link_to ' EDIT', edit_category_path(@category) ,method: :post, class: 'btn btn-primary btn-custom'%>
+<%= link_to ' DELETE', category_path(@category) ,method: :delete, class: 'btn btn-danger btn-custom'%>
+</div>
+<style>
+.action-position{
+}
+.btn-custom{
+  width: 55px;
+  height: 30px;
+  font-size: 10px;
+  text-align: center;
+}
+</style>
+<script type="text/javascript">
+</script>

@@ -1,0 +1,23 @@
+<div id="category_brands">
+  <%= select_tag :category, options_for_select(@category_follow_brand),:size => 15, class: 'select2_group form-control category-tree' %>
+  <button id="delete-btn" class="btn btn-danger">Delete</button>   
+</div>
+<script type="text/javascript">
+  $('#delete-btn').click(function() {
+      var value1 =  $('#category').val();
+      console.log(value1);
+       $.ajax({
+          url:'../destroy_relationship/'+value1,
+          type:'DELETE',
+          dataType:'json',
+          data:{
+              value: value1
+          },
+          dataType: 'script',
+          success:function(data){
+          },
+          error:function(data){
+          }
+      });
+    });
+</script>

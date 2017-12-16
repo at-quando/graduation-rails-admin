@@ -1,0 +1,34 @@
+<%=form_for @shop, url: shops_path, method: 'POST' do |f| %>
+	<div class="col-md-6 col-xs-12">
+		<div class="x_panel">
+			<div class="x_title">
+				<h2>Shop Registration <small>your shop information</small></h2>
+				<div class="clearfix"></div>
+			</div>
+			<div class="x_content">
+		<!-- start form for validation -->
+					<div id="demo-form" data-parsley-validate>
+						<label for="fullname">Name Shop* :</label>
+						<%=f.text_field :name, class: 'form-control' %>
+						<label for="email">Address* :</label>
+						<%=f.text_field :address, class: 'form-control' %>
+						<label for="email">Which type* :</label>
+						<select class="form-control">
+							<option>Company</option>
+							<option>Personal</option>
+						</select>
+					</div>
+			</div>
+		</div>
+		<div class="x_panel">
+			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+		</div>
+	</div>
+	<%= f.fields_for :admins do |builder| %>
+		<%= render 'shops/user_field', :f => builder %>
+	<% end %>
+	<%= f.submit 'Submit Form', class: 'btn btn-primary text-center form-control' %>
+<% end %>
+
+
+

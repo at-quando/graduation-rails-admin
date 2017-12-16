@@ -1,0 +1,244 @@
+<div class="">
+  <div class="clearfix"></div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="">
+        <div class="x_content">
+            <div class="animated flipInY col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <div class="tile-stats">
+                <div class="icon"><i class="fa fa-caret-square-o-right"></i>
+                </div>
+                <div class="count"><%=@sum %></div>
+                <h3>Brands</h3>
+              </div>
+              <div class="x_panel ">
+                <div class="x_title">
+                  <h2>Add new Brand</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content" id="categorytree">
+                  <%= form_tag(brands_path, method: :post) do %>
+                    Choose the category where brand is added:
+                    <%= select_tag :category_id, grouped_options_for_select(category_arrays), class: 'select2_group form-control' %>
+                    Name of brand:
+                    <%= text_field_tag :brand_name_1,nil, class: "select2_group form-control" %>
+                    <%= submit_tag "Create", class: 'btn btn-primary' %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Edit Brand</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content" id="categorytree">
+                    Choose the brand is edited name:
+                    <%= select_tag 'brand_id', options_for_select(@brands_name,nil ), class: 'category-tree form-control'%>
+                    New name of brand:
+                    <input type="text" id="brand_name_2" class="select2_group form-control">
+                    <button class="btn btn-primary" id="submit-edit">Update</button>
+                </div>
+              </div>
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Add Relationship</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content" id="categorytree">
+                  <%= form_tag(category_brands_path, method: :post) do %>
+                    Choose the brand:
+                    <%= select_tag 'rela_brand', options_for_select(@brands_name,nil ), class: 'category-tree form-control'%>
+                    Choose the category:
+                    <%= select_tag 'rela_category', grouped_options_for_select(category_arrays, nil ), class: 'category-tree form-control'%>
+                    <%= submit_tag 'CREATE', class: 'btn btn-primary'%>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Brands in Category <small>Sessions</small></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div id="graph_bar" style="width:100%; height:280px; padding-bottom: 50px;"></div>
+                </div>
+              </div>
+            <div class="col-md-6 col-sm-12 col-xs-12 ">
+              <div class="x_panel ui-ribbon-container">
+                <div class="x_title">
+                  <h2>Brands</h2>
+                  <div class="clearfix"></div>
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Name of brand</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% @brands.each do |brand| %>
+                        <tr>
+                          <td scope="row"><%=brand.id%></td>
+                          <td><%=brand.branch%></td>
+                          <td>
+                             <%= link_to ' Delete', brand_path(brand) ,method: :delete%>         
+                          </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12 ">
+              <div class="x_panel ui-ribbon-container">
+                <div class="x_title">
+                  <h2>Relationship with Category</h2>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="col-md-5">
+                  <h4>Brands</h4>
+                  <%= select_tag 'cat_id', options_for_select(@brands_name,nil ), :size => @sum, class: 'category-tree'%>
+                </div>
+                 <div class="col-md-7">
+                  <h4>Categories</h4>
+                  <div id="category_brands"></div>
+                </div>
+              </div>
+            </div>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+.category-tree{
+  border: none;
+}
+
+</style>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      if( typeof (Morris) === 'undefined'){ return; }
+      console.log('init_morris_charts');
+
+      if ($('#graph_bar').length){
+
+        Morris.Bar({
+          element: 'graph_bar',
+          data: <%= @brand_cat.to_json.to_s.html_safe%>,
+          xkey: 'device',
+          ykeys: ['quantity'],
+          labels: ['quantity'],
+          barRatio: 0.4,
+          barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+          xLabelAngle: 35,
+          hideHover: 'auto',
+          resize: true
+        });
+
+      }
+      
+  })
+
+  $('#cat_id').change(function() {
+      var value1 =  $('#cat_id').val();
+      console.log(value1);
+       $.ajax({
+          url:'../load_categories',
+          type:'POST',
+          dataType:'json',
+          data:{
+              value: value1
+          },
+          dataType: 'script',
+          success:function(data){
+          },
+          error:function(data){
+          }
+      });
+    });
+  $('#submit-edit').click(function() {
+      var value1 =  $('#brand_id').val();
+      var value2 = $('#brand_name_2').val();
+      console.log(value2);
+       $.ajax({
+          url:'../brands/'+value1,
+          type:'PATCH',
+          dataType:'json',
+          data:{
+              brand_id: value1,
+              brand_name: value2
+          },
+          dataType: 'script',
+          success:function(data){
+          },
+          error:function(data){
+          }
+      });
+    });
+</script>

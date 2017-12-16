@@ -1,0 +1,100 @@
+<div class="form_wizard wizard_verticle" id="replacepart">
+  <% if @order_item %>
+  <b>Editing order_id = <%= @order_item.id %></b>
+  <% end %>
+  <ul class="list-unstyled wizard_steps" style="margin-top: 40px; margin-left: 60px;" >
+    <% if @order_item && @order_item.status == "Preparing" %>
+      <li style="position: relative;">
+        <span class="step_descr" style="position: absolute; left:-70px; top: 0;">
+          Preparing<br />
+        </span>
+        <a href="#step-11" >
+          <span class="step_no origin">1</span>
+        </a>
+      </li>
+    <%else%>
+      <li style="position: relative;">
+        <span class="step_descr" style="position: absolute; left:-70px; top: 0">
+          Preparing<br />
+        </span>
+        <a href="#step-11" class="disabled" value="0">
+          <span class="step_no">1</span>
+        </a>
+      </li>
+    <% end %>
+    <% if @order_item && @order_item.status == "Transporting" %>
+    <li style="position: relative;">
+      <span class="step_descr" style="position: absolute; left:-70px; top: 0; ">
+        Transporting<br />
+      </span>
+      <a href="#step-11" >
+        <span class="step_no origin" >2</span>
+      </a>
+    </li>
+    <%else%>
+      <li style="position: relative;" >
+        <span class="step_descr" style="position: absolute; left:-70px; top: 0">
+          Transporting<br />
+        </span>
+        <a href="#step-11" class="disabled" value="1">
+          <span class="step_no">2</span>
+        </a>
+      </li>
+    <% end %>
+    <% if @order_item && @order_item.status == "Transported" %>
+      <li style="position: relative;">
+        <span class="step_descr" style="position: absolute; left:-70px; top: 0; ">
+          Transported<br />
+        </span>
+        <a href="#step-11">
+          <span class="step_no origin">3</span>
+        </a>
+      </li>
+    <%else%>
+      <li style="position: relative;">
+        <span class="step_descr" style="position: absolute; left:-70px; top: 0">
+          Transported<br />
+        </span>
+        <a href="#step-11" class="disabled" value="2">
+          <span class="step_no">3</span>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+  <div class="clearfix"></div>
+    <button id="saveprocess" class="btn btn-primary" style="display: none">SAVE</button>
+</div>
+<style>
+.origin{
+  background-color: orange;
+}
+</style>
+<% if @order_item %>
+  <script>
+    $(".disabled").click(function(){
+      $('#saveprocess').show();
+      $(".active").addClass("disabled");
+      $(".active").removeClass("active");
+      $(this).removeClass("disabled");
+      $(this).addClass("active");
+    })
+    $('#saveprocess').click(function() {
+        var value = $(".active").attr("value");
+        var id =  <%=@order_item.id %>;
+         $.ajax({
+            url:'../../save_process',
+            type:'PATCH',
+            dataType:'json',
+            data:{
+                value: value,
+                id: id
+            },
+            dataType: 'script',
+            success:function(data){
+            },
+            error:function(data){
+            }
+        });
+      });
+  </script>
+<% end %>

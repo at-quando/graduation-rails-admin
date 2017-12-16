@@ -1,0 +1,35 @@
+<div class="col-md-6 col-xs-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>Shop Owner Form <small>as a shop owner</small></h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+  <!-- start form for validation -->
+        <div id="demo-form" data-parsley-validate>
+          <label for="fullname">Full Name * :</label>
+          <%=f.text_field :name, class: 'form-control' %>
+          <label for="email">Email * :</label>
+          <%=f.text_field :email, class: 'form-control' %>
+          <label for="email">Username * :</label>
+          <%=f.text_field :user_name, class: 'form-control' %>
+           <label for="email">Phone * :</label>
+          <%=f.text_field :phone, class: 'form-control' %>
+          <label>Gender *:</label>
+          <p>
+            Male:
+            <%= f.radio_button :gender, 'Male', :checked => true, class: 'flat' %> 
+            Female:
+            <%= f.radio_button :gender, 'Female', :checked => true, class: 'flat' %>
+          </p>
+          <label>Role *:</label>
+          <p>
+            Shop owner:
+            <%= f.radio_button :role, 'ShopOwner', :checked => true, class: 'flat' %> 
+            Shop assistant:
+            <%= f.radio_button :role, 'Assistant', class: 'flat' %> 
+          </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,227 @@
+          <div class="">
+            <div class="clearfix"></div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="">
+                  <div class="x_content">
+                      <div class="animated flipInY col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                        <div class="tile-stats">
+                          <div class="icon"><i class="fa fa-caret-square-o-right"></i>
+                          </div>
+                          <div class="count"><%=@sum %></div>
+                          <h3>Categories</h3>
+                        </div>
+                        <div class="x_panel">
+                          <div class="x_title">
+                            <h2>CATEGORY TREE</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                              </li>
+                              <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                  <li><a href="#">Settings 1</a>
+                                  </li>
+                                  <li><a href="#">Settings 2</a>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li><a class="close-link"><i class="fa fa-close"></i></a>
+                              </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                          </div>
+                          <div class="x_content" id="categorytree">
+                            <div id="action"></div>
+                            <%= select_tag 'cat_id', options_for_select(nested_set_options(Category) { |i|
+                              if i.level == 0
+                                " #{i.title.upcase}" 
+                              else
+                                "#{'---' * i.level} #{i.title}" 
+                              end
+                              },nil ), :size => @sum, class: 'category-tree'%>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-9 col-xs-12">
+                        <div class="x_panel ">
+                          <div class="x_title">
+                            <h2>CATEGORY AND PRODUCTS</h2>
+                            <ul class="nav navbar-right panel_toolbox">
+                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                              </li>
+                              <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                  <li><a href="#">Settings 1</a>
+                                  </li>
+                                  <li><a href="#">Settings 2</a>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li><a class="close-link"><i class="fa fa-close"></i></a>
+                              </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                          </div>
+                          <div class="x_content">
+                            <table class="" style="width:100%">
+                              <tr>
+                                <th style="width:37%;">
+                                  <p>How main categories contain products</p>
+                                </th>
+                                <th>
+                                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                                    <p class="">Main</p>
+                                  </div>
+                                  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+                                    <p class="">Percentage</p>
+                                  </div>
+                                </th>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <canvas class="canvasDoughnut" height="200" width="200" style="margin: 15px 10px 10px 0"></canvas>
+                                </td>
+                                <td>
+                                  <table class="tile_info">
+                                    <% statistic_categories.each do |main|  %>
+                                    <tr>
+                                      <td style="width: 0">
+                                        <% if main==@main_categories[0] %>
+                                          <p><i class="fa fa-square blue"></i><%=main[0] %> </p>
+                                        <% end %>
+                                         <% if main==@main_categories[1] %>
+                                          <p><i class="fa fa-square red"></i><%=main[0] %> </p>
+                                        <% end %>
+                                         <% if main==@main_categories[2] %>
+                                          <p><i class="fa fa-square green"></i><%=main[0] %> </p>
+                                        <% end %>
+                                         <% if main==@main_categories[3] %>
+                                          <p><i class="fa fa-square grey"></i><%=main[0] %> </p>
+                                        <% end %>
+                                      </td>
+                                      <td><%= main[1] %> %</td>
+                                    </tr>
+                                    <% end %>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-9 col-sm-12 col-xs-12 ">
+                        <div class="x_panel ui-ribbon-container">
+                          <div class="x_title">
+                            <h2>ADD NEW CATEGORY</h2>
+                            <div class="clearfix"></div>
+                          </div>
+                          <div class="x_content">
+                            <h3 class="name_title">Root</h3>
+                            <p>Create the new category root</p>
+                            <%= form_tag(categories_path, method: :post) do %>
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12">Name:</label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input class="form-control" type="text" name="main_category_name">
+                                <%= submit_tag "Create", class: 'btn btn-primary' %>
+                              </div>
+                            <% end %>
+                          </div>
+                          <div class="x_content">
+                            <%= form_tag(categories_path, method: :post) do %>
+                              <div class="divider"></div>
+                              <h3 class="name_title">Sub category</h3>
+                              <p>Choose the parent category first</p>
+                              <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Parent:</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                  <%= select_tag 'parent_id', options_for_select(nested_set_options(Category) { |i| "#{'---' * i.level} #{i.title}" }), class: 'select2_group form-control'%>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Name of new category:</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                  <input class="form-control" type="text" name="sub_category_name">
+                                  <%= submit_tag "Create", class: 'btn btn-primary' %>
+                                </div>
+                              </div>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+<style>
+.category-tree{
+  border: none;
+}
+#categorytree{
+}
+</style>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    if ($('.canvasDoughnut').length){
+    var title= [];
+    var data= [];
+    var main_categories = <%= statistic_categories.to_json.to_s.html_safe %>;
+    main_categories.forEach(function(a){
+      title.push(a[0]);
+      data.push(a[1]);
+    });
+    var chart_doughnut_settings = {
+        type: 'doughnut',
+        tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+        data: {
+          labels: title,
+          datasets: [{
+            data: data,
+            backgroundColor: [
+              "#3498DB",
+              "#E74C3C",
+              "#9B59B6",
+              "#BDC3C7",
+              "#26B99A"
+            ],
+            hoverBackgroundColor: [
+              "#CFD4D8",
+              "#B370CF",
+              "#E95E4F",
+              "#36CAAB",
+              "#49A9EA"
+            ]
+          }]
+        },
+        options: {
+          legend: false,
+          responsive: false
+        }
+      }
+      $('.canvasDoughnut').each(function(){
+        var chart_element = $(this);
+        var chart_doughnut = new Chart( chart_element, chart_doughnut_settings);
+      });
+    }
+  })
+
+  $('#cat_id').change(function() {
+      var value1 =  $('#cat_id').val();
+       $.ajax({
+          url:'../action',
+          type:'POST',
+          dataType:'json',
+          data:{
+              value: value1
+          },
+          dataType: 'script',
+          success:function(data){
+          },
+          error:function(data){
+          }
+      });
+    });
+</script>

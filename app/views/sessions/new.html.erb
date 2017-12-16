@@ -1,0 +1,39 @@
+<div>
+  <a class="hiddenanchor" id="signup"></a>
+  <a class="hiddenanchor" id="signin"></a>
+  <div class="login_wrapper" >
+    <div class="animate form login_form">
+      <section class="login_content">
+        <%= form_for :session, url: login_path do |f| %>
+      <h1>Login Form</h1>
+      <div>
+        <%= f.text_field :user_name, class: "form-control", placeholder: "Username", required: "" %>
+      </div>
+      <div>
+        <%= f.password_field :password, class: "form-control", placeholder: "Password", required: "" %>
+      </div>
+      <div>
+        <%= f.submit "Log in", class: "btn btn-default submit" %>
+      </div>
+      <div class="clearfix"></div>
+      <div class="separator">
+        <p class="change_link">New to site?
+        </p>
+        <div class="clearfix"></div>
+        <br />
+        <div>
+          <h1> FANATIC WEBSITE!</h1>
+          <p>©2017 All Rights Reserved. Privacy and Terms</p>
+        </div>
+      </div>
+    <% end %>
+      </section>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
